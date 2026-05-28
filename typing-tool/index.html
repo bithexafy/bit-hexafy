@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Typing Master | Premium Practice</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="glass-header">
+      <div class="logo">
+        <i class="fas fa-keyboard"></i>
+        <h1>Typing<span>Master</span></h1>
+      </div>
+      <div class="header-controls">
+        <div class="difficulty-selector">
+          <button class="difficulty-btn" data-diff="easy">Easy</button>
+          <button class="difficulty-btn active" data-diff="medium">Medium</button>
+          <button class="difficulty-btn" data-diff="hard">Hard</button>
+        </div>
+        <button id="darkModeToggle" class="icon-btn"><i class="fas fa-moon"></i></button>
+      </div>
+    </header>
+
+    <!-- Timer & Mode Bar -->
+    <div class="timer-mode-bar">
+      <div class="timer-buttons">
+        <button class="timer-option" data-time="30">30s</button>
+        <button class="timer-option active" data-time="60">60s</button>
+        <button class="timer-option" data-time="120">120s</button>
+      </div>
+      <div class="timer-display">
+        <i class="fas fa-hourglass-half"></i>
+        <span id="timerValue">01:00</span>
+      </div>
+    </div>
+
+    <!-- Main Typing Area -->
+    <div class="typing-arena">
+      <div class="text-display-container">
+        <div id="textDisplay" class="text-display">
+          <!-- dynamic words will appear here -->
+        </div>
+        <div class="cursor-overlay" id="cursorOverlay"></div>
+      </div>
+      <div class="input-area">
+        <input type="text" id="userInput" class="typing-input" placeholder="Click here & start typing..." autocomplete="off" disabled>
+        <div class="input-controls">
+          <button id="restartBtn" class="action-btn"><i class="fas fa-redo-alt"></i> Restart</button>
+          <button id="soundToggleBtn" class="action-btn"><i class="fas fa-volume-up"></i> Sound</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Dashboard -->
+    <div class="stats-panel">
+      <div class="stat-card">
+        <i class="fas fa-tachometer-alt"></i>
+        <div class="stat-info">
+          <span class="stat-label">WPM</span>
+          <span id="wpmValue" class="stat-value">0</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-percent"></i>
+        <div class="stat-info">
+          <span class="stat-label">Accuracy</span>
+          <span id="accuracyValue" class="stat-value">100%</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-keyboard"></i>
+        <div class="stat-info">
+          <span class="stat-label">Characters</span>
+          <span id="charsValue" class="stat-value">0</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-times-circle"></i>
+        <div class="stat-info">
+          <span class="stat-label">Mistakes</span>
+          <span id="mistakesValue" class="stat-value">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+
+  <!-- Result Modal -->
+  <div id="resultModal" class="modal">
+    <div class="modal-content glass-card">
+      <i class="fas fa-chart-line modal-icon"></i>
+      <h2>Test Complete</h2>
+      <div class="result-stats">
+        <div class="result-item"><span>Final WPM:</span> <strong id="finalWPM">0</strong></div>
+        <div class="result-item"><span>Accuracy:</span> <strong id="finalAcc">0%</strong></div>
+        <div class="result-item"><span>Total Errors:</span> <strong id="finalErrors">0</strong></div>
+      </div>
+      <button id="modalRestartBtn" class="primary-btn"><i class="fas fa-play"></i> New Test</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro Image Resizer</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+}
+
+.upload-box {
+    border: 2px dashed #555;
+    padding: 20px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+img {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.controls {
+    margin-top: 20px;
+    text-align: left;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+button {
+    width: 48%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.resize-btn { background: #3b82f6; color: white; }
+.download-btn { background: #22c55e; color: white; }
+
+.slider {
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.info {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #cbd5f5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🔥 Pro Image Resizer</h2>
+
+<div class="upload-box" onclick="fileInput.click()">
+    Click to Upload Image
+    <input type="file" id="fileInput" hidden>
+</div>
+
+<!-- ORIGINAL -->
+<img id="preview" class="hidden">
+<p id="originalInfo" class="info"></p>
+
+<!-- CONTROLS -->
+<div class="controls hidden" id="controls">
+
+<h3>Resize Method</h3>
+
+<select id="mode">
+    <option value="dimension">Width / Height</option>
+    <option value="percentage">Percentage</option>
+    <option value="size">File Size</option>
+</select>
+
+<!-- DIMENSION -->
+<div id="dimensionBox">
+    <input type="number" id="widthInput" placeholder="Width">
+    <input type="number" id="heightInput" placeholder="Height">
+
+    <select id="unit">
+        <option value="px">px</option>
+        <option value="cm">cm</option>
+        <option value="in">inch</option>
+    </select>
+
+    <label>
+        <input type="checkbox" id="aspect" checked>
+        Maintain Aspect Ratio
+    </label>
+</div>
+
+<!-- PERCENT -->
+<div id="percentBox" class="hidden">
+    <input type="range" min="10" max="200" value="100" id="percent">
+    <p id="percentValue">100%</p>
+</div>
+
+<!-- SIZE -->
+<div id="sizeBox" class="hidden">
+    <input type="number" id="sizeInput" placeholder="Enter size">
+    <select id="sizeUnit">
+        <option value="kb">KB</option>
+        <option value="mb">MB</option>
+    </select>
+</div>
+
+<!-- BUTTONS -->
+<div style="display:flex; justify-content:space-between;">
+    <button class="resize-btn" onclick="resizeImage()">Resize</button>
+    <button class="download-btn" onclick="downloadImage()">Download</button>
+</div>
+
+</div>
+
+<!-- OUTPUT -->
+<img id="output" class="hidden">
+<p id="resizedInfo" class="info"></p>
+
+<canvas id="canvas" class="hidden"></canvas>
+
+</div>
+
+<script>
+
+let img = new Image();
+let originalWidth, originalHeight;
+let resizedDataUrl = "";
+
+const fileInput = document.getElementById("fileInput");
+const preview = document.getElementById("preview");
+const output = document.getElementById("output");
+const controls = document.getElementById("controls");
+
+fileInput.addEventListener("change", function(e){
+    const file = e.target.files[0];
+
+    let sizeKB = (file.size / 1024).toFixed(2);
+    let sizeMB = (sizeKB / 1024).toFixed(2);
+
+    document.getElementById("originalInfo").innerText =
+        `Original: ${sizeKB} KB (${sizeMB} MB)`;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+        img.src = event.target.result;
+        preview.src = event.target.result;
+
+        preview.classList.remove("hidden");
+        controls.classList.remove("hidden");
+    }
+
+    reader.readAsDataURL(file);
+});
+
+img.onload = function(){
+    originalWidth = img.width;
+    originalHeight = img.height;
+
+    document.getElementById("originalInfo").innerText +=
+        ` | ${originalWidth} x ${originalHeight}px`;
+
+    widthInput.value = originalWidth;
+    heightInput.value = originalHeight;
+}
+
+// MODE SWITCH
+mode.addEventListener("change", function(){
+    dimensionBox.classList.add("hidden");
+    percentBox.classList.add("hidden");
+    sizeBox.classList.add("hidden");
+
+    if(this.value === "dimension") dimensionBox.classList.remove("hidden");
+    if(this.value === "percentage") percentBox.classList.remove("hidden");
+    if(this.value === "size") sizeBox.classList.remove("hidden");
+});
+
+// SLIDER
+percent.addEventListener("input", function(){
+    percentValue.innerText = this.value + "%";
+});
+
+function convertToPx(value, unit){
+    if(unit === "cm") return value * 37.8;
+    if(unit === "in") return value * 96;
+    return value;
+}
+
+function resizeImage(){
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+
+    let width = originalWidth;
+    let height = originalHeight;
+    let modeVal = mode.value;
+
+    // DIMENSION
+    if(modeVal === "dimension"){
+        width = convertToPx(widthInput.value, unit.value);
+        height = convertToPx(heightInput.value, unit.value);
+
+        if(aspect.checked){
+            height = width * (originalHeight / originalWidth);
+        }
+    }
+
+    // PERCENT
+    if(modeVal === "percentage"){
+        width = originalWidth * (percent.value / 100);
+        height = originalHeight * (percent.value / 100);
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // SIZE COMPRESS
+    if(modeVal === "size"){
+        let maxSize = sizeInput.value;
+        if(sizeUnit.value === "mb") maxSize *= 1024;
+
+        let quality = 1;
+
+        do {
+            resizedDataUrl = canvas.toDataURL("image/jpeg", quality);
+            quality -= 0.05;
+        } while ((resizedDataUrl.length / 1024) > maxSize && quality > 0.1);
+    } else {
+        resizedDataUrl = canvas.toDataURL("image/jpeg", 0.9);
+    }
+
+    // SHOW OUTPUT
+    output.src = resizedDataUrl;
+    output.classList.remove("hidden");
+
+    let newSizeKB = (resizedDataUrl.length / 1024).toFixed(2);
+    let newSizeMB = (newSizeKB / 1024).toFixed(2);
+
+    document.getElementById("resizedInfo").innerText =
+        `Resized: ${newSizeKB} KB (${newSizeMB} MB) | ${Math.round(width)} x ${Math.round(height)}px`;
+}
+
+function downloadImage(){
+    if(!resizedDataUrl){
+        alert("Pehle resize karo!");
+        return;
+    }
+
+    let link = document.createElement("a");
+    link.href = resizedDataUrl;
+    link.download = "resized.jpg";
+    link.click();
+}
+
+</script>
+
+</body>
+</html>

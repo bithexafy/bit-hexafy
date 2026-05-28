@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Bit_Hexafy</title>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #dbb7f3 0%, #ffffff 60%, #f0f5ff 100%);
+      min-height: 100vh;
+      color: #111827;
+      overflow-x: hidden;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .bithexafylogo {
+      position: relative;
+      z-index: 2;
+      width: 10%;
+      height: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c3e66;
+      transition: 0.2s ease;
+      font-size: 1rem;
+    }
+    .nav-links a:hover {
+      color: #4f46e5;
+    }
+
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .left-col h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .gradient-text {
+      background: linear-gradient(125deg, #2563eb, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    .subhead {
+      font-size: 1.125rem;
+      color: #5b6e8c;
+      line-height: 1.5;
+      margin-bottom: 2.5rem;
+      max-width: 90%;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .tool-card {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.12));
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 1.5rem 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .tool-card i {
+      font-size: 2rem;
+      background: linear-gradient(125deg, #3b82f6, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .tool-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      color: #0f172a;
+    }
+    .tool-card p {
+      font-size: 0.9rem;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 25px 35px -12px rgba(79, 70, 229, 0.35), 0 0 0 1px rgba(255,255,255,0.4);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+      backdrop-filter: blur(12px);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .right-col {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 450px;
+    }
+
+    .gradient-blob {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle at 30% 40%, #a855f7, #3b82f6, #6366f1);
+      border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
+      filter: blur(70px);
+      opacity: 0.65;
+      z-index: 0;
+      animation: floatBlob 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatBlob {
+      0% {
+        transform: translateY(0px) translateX(0px) rotate(0deg);
+        border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
+      }
+      100% {
+        transform: translateY(-20px) translateX(15px) rotate(3deg);
+        border-radius: 45% 55% 40% 60% / 55% 40% 60% 45%;
+      }
+    }
+
+    .man-image {
+      position: relative;
+      z-index: 2;
+      max-width: 65%;
+      border-radius: 50%;
+      border: 0px solid #4400ff;
+      box-shadow: 0 2px 60px 1px rgba(0, 34, 228, 0.733);
+      height: auto;
+      filter: drop-shadow(0 20px 25px -8px rgba(0, 0, 0, 0.15));
+      transition: transform 0.3s ease;
+      pointer-events: none;
+    }
+    .man-image:hover {
+      transform: scale(1.01);
+    }
+
+    @media (max-width: 1024px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+      }
+      .left-col h1 {
+        font-size: 2.8rem;
+      }
+      .gradient-blob {
+        width: 400px;
+        height: 400px;
+        filter: blur(60px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      .split-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .right-col {
+        order: 2;
+        min-height: 380px;
+      }
+      .left-col {
+        order: 1;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .subhead {
+        max-width: 100%;
+      }
+      .header {
+        margin-bottom: 1.5rem;
+      }
+      .nav-links {
+        gap: 1.2rem;
+      }
+       .logo {
+        font-size: 1.6rem;
+      }
+      .gradient-blob {
+        width: 320px;
+        height: 320px;
+        filter: blur(55px);
+      }
+    }
+    .imgtl{
+        padding: 15px 40px;
+        border: none;        
+        outline: none;
+        color: #fff;
+        cursor:  pointer;
+        position: relative;
+        z-index: 0;
+        border-radius: 12px;
+    }
+    .imgtl::after {
+        content: "";
+        z-index: -1;
+        position: absolute;
+        width:  100%;
+        height: 100%;
+        background-color: #333;
+        left: 0;
+        top: 0;
+        border-radius: 10%;
+    }
+
+    @media (max-width: 480px) {
+      .left-col h1 {
+        font-size: 2.2rem;
+      }
+      .tool-card:hover {
+        transform: translateY(-5px) scale(1.02);
+      }
+      .gradient-blob {
+        width: 280px;
+        height: 280px;
+        filter: blur(50px);
+      }
+    }
+
+    .nav-links a {
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: linear-gradient(90deg, #3b82f6, #a855f7);
+      transition: width 0.25s ease;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .tagline-badge {
+      display: inline-block;
+      background: rgba(59,130,246,0.1);
+      backdrop-filter: blur(4px);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #2563eb;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="header">
+    <img src="Bit_Hexafy.png" alt="Bit_Hexafy logo" class="bithexafylogo">
+    <div class="nav-links">
+      <a href="#">Products</a>
+      <a href="#">Solutions</a>
+      <a href="#">Resources</a>
+      <a href="#">Contact</a>
+    </div>
+  </header>
+
+  <div class="split-layout">
+
+    <div class="left-col">
+      <div class="tagline-badge">
+        <i class="fas fa-bolt" style="font-size: 0.75rem; margin-right: 6px;"></i> Next-gen platform
+      </div>
+      <h1>
+        Accelerate with <span class="gradient-text">Bit Hexafy</span>
+      </h1>
+      <p class="subhead">
+        Seamless AI-powered orchestration, enterprise analytics, and cloud-native tools — built for modern teams.
+      </p>
+      
+      <div class="cards-grid">
+
+        <div class="tool-card" onclick="openPage('image-tool/index.html')">
+          <i class="fas fa-image"></i>
+          <h3>Image Tool</h3>
+          <p>All-in-One Image Editing Tools to Resize, Crop, Compress & Convert in Seconds</p>
+        </div>
+
+        <div class="tool-card" onclick="openPage('resume-builder/index.html')" >
+          <i class="fas fa-edit"></i>
+          <h3>Resume Builder</h3>
+          <p>Bank-grade encryption + zero-trust architecture.</p>
+        </div>
+
+        <div class="tool-card" onclick="openPage('pdf-editor/index.html')">
+          <i class="fa fa-file-pdf"></i>
+          <h3>PDF Editing</h3>
+          <p>Intelligent workflows that adapt to your business logic.</p>
+        </div>
+
+        <div class="tool-card" onclick="openPage('Typing test/index.html')">
+          <i class="fas fa-keyboard"></i>
+          <h3>Typing Test</h3>
+          <p>offers a free online Typing Tes and keyboarding practice. Check your wpm for free now!</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="right-col">
+
+        <div class="gradient-blob"></div>
+
+        <img class="man-image" 
+           src="MeFront.png" 
+           alt="Professional man in suit with transparent background"
+           loading="eager">
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  (function() {
+
+    console.log("✨ bit.Hexafy UI — modern glassmorphism suite ready");
+    
+    const cards = document.querySelectorAll('.tool-card');
+    if(cards.length) {
+      cards.forEach(card => {
+        card.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(-6px) scale(1.02)';
+          setTimeout(() => {
+            if(!this.matches(':hover')) {
+              this.style.transform = '';
+            }
+          }, 200);
+        });
+        card.addEventListener('touchend', function() {
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 100);
+        });
+      });
+    }
+
+    const blob = document.querySelector('.gradient-blob');
+    const rightContainer = document.querySelector('.right-col');
+    if(blob && rightContainer) {
+      rightContainer.addEventListener('mousemove', (e) => {
+        const rect = rightContainer.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        blob.style.transform = `translate(${(x - 50) * 0.03}px, ${(y - 50) * 0.02}px)`;
+      });
+      rightContainer.addEventListener('mouseleave', () => {
+        blob.style.transform = '';
+      });
+    }
+
+  })();
+      function openPage(path) {
+      window.location.href = path;
+    }
+</script>
+</body>
+</html>

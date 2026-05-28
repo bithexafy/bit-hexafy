@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>NexusPDF | Professional PDF Editor</title>
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- PDF.js core & worker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <!-- pdf-lib -->
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- JSZip for PDF to JPG batch download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Header / Drag & Drop Zone -->
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-content">
+        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+        <h3>Drag & Drop PDF or Images here</h3>
+        <p>or <span class="browse-btn" id="browseBtn">Browse Files</span></p>
+        <small>Supports PDF, JPG, PNG (single upload, then edit freely)</small>
+        <input type="file" id="fileInput" accept=".pdf,image/jpeg,image/png,image/jpg" style="display:none">
+      </div>
+    </div>
+
+    <!-- Main Dashboard (hidden until upload) -->
+    <div class="dashboard" id="dashboard" style="display: none;">
+      <!-- Left Sidebar: Tools Menu -->
+      <aside class="tools-sidebar">
+        <div class="logo-area">
+          <i class="fas fa-file-pdf"></i>
+          <span>PDF Master</span>
+        </div>
+        <nav class="tools-nav">
+          <button class="tool-btn active" data-tool="previewInfo"><i class="fas fa-eye"></i> <span>Info & Preview</span></button>
+          <button class="tool-btn" data-tool="merge"><i class="fas fa-object-group"></i> <span>Merge PDF</span></button>
+          <button class="tool-btn" data-tool="split"><i class="fas fa-cut"></i> <span>Split PDF</span></button>
+          <button class="tool-btn" data-tool="jpgToPdf"><i class="fas fa-file-image"></i> <span>JPG to PDF</span></button>
+          <button class="tool-btn" data-tool="pdfToJpg"><i class="fas fa-camera"></i> <span>PDF to JPG</span></button>
+          <button class="tool-btn" data-tool="compress"><i class="fas fa-compress-alt"></i> <span>Compress</span></button>
+          <button class="tool-btn" data-tool="watermark"><i class="fas fa-watermark"></i> <span>Watermark</span></button>
+          <button class="tool-btn" data-tool="pageNumbers"><i class="fas fa-hashtag"></i> <span>Page Numbers</span></button>
+          <button class="tool-btn" data-tool="signature"><i class="fas fa-signature"></i> <span>Signature</span></button>
+          <button class="tool-btn" data-tool="editText"><i class="fas fa-i-cursor"></i> <span>Edit Text (Overlay)</span></button>
+          <button class="tool-btn" data-tool="rotate"><i class="fas fa-undo-alt"></i> <span>Rotate Pages</span></button>
+          <button class="tool-btn" data-tool="deletePages"><i class="fas fa-trash-alt"></i> <span>Delete Pages</span></button>
+        </nav>
+        <div class="reset-download">
+          <button id="resetAppBtn" class="reset-btn"><i class="fas fa-sync-alt"></i> Reset</button>
+          <button id="downloadFinalBtn" class="download-final-btn"><i class="fas fa-download"></i> Download PDF</button>
+        </div>
+      </aside>
+
+      <!-- Center: PDF Preview + Navigation -->
+      <main class="preview-area">
+        <div class="preview-header">
+          <div class="file-info" id="fileInfo">📄 No file loaded</div>
+          <div class="page-controls">
+            <button id="prevPageBtn" disabled><i class="fas fa-chevron-left"></i></button>
+            <span id="pageNumDisplay">1</span> / <span id="totalPagesDisplay">0</span>
+            <button id="nextPageBtn" disabled><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="canvas-container">
+          <canvas id="pdfCanvas" class="pdf-canvas"></canvas>
+          <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+            <div class="spinner"></div>
+            <span>Processing...</span>
+          </div>
+        </div>
+      </main>
+
+      <!-- Right Panel: Dynamic Tool Settings -->
+      <aside class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+          <i class="fas fa-sliders-h"></i> <span id="toolTitle">Tool Settings</span>
+        </div>
+        <div id="toolSettingsContent">
+          <!-- dynamic content loaded per tool -->
+          <div class="info-placeholder">Select a tool from left to configure.</div>
+        </div>
+        <div id="toastContainer" class="toast-container"></div>
+      </aside>
+    </div>
+  </div>
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+/* style.css - Premium Typing Practice App */
+
+:root {
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --correct: #10b981;
+  --wrong: #ef4444;
+  --current: #f59e0b;
+  --card-bg: rgba(30, 41, 59, 0.6);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --transition: all 0.3s ease;
+}
+
+body.dark {
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #0a0f1a 100%);
+  --glass-bg: rgba(0, 0, 0, 0.4);
+  --card-bg: rgba(15, 23, 42, 0.8);
+  --text-primary: #e2e8f0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  transition: var(--transition);
+}
+
+.app-container {
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Glass Header */
+.glass-header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo i {
+  font-size: 2rem;
+  color: var(--accent);
+}
+
+.logo h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.header-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.difficulty-selector {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.3rem;
+  border-radius: 2rem;
+}
+
+.difficulty-btn {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.difficulty-btn.active {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 0 10px rgba(59,130,246,0.5);
+}
+
+.icon-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  transition: var(--transition);
+}
+
+.icon-btn:hover {
+  background: var(--accent);
+  transform: scale(1.05);
+}
+
+/* Timer Bar */
+.timer-mode-bar {
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  border-radius: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--glass-border);
+}
+
+.timer-buttons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.timer-option {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.timer-option.active {
+  background: var(--accent);
+  color: white;
+}
+
+.timer-display {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(0,0,0,0.3);
+  padding: 0.3rem 1.2rem;
+  border-radius: 3rem;
+}
+
+.timer-display i {
+  font-size: 1.4rem;
+}
+
+/* Typing Arena */
+.typing-arena {
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  border-radius: 2rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--glass-border);
+}
+
+.text-display-container {
+  position: relative;
+  background: rgba(0,0,0,0.3);
+  border-radius: 1.5rem;
+  padding: 1.8rem;
+  min-height: 200px;
+  margin-bottom: 1.8rem;
+  overflow-x: auto;
+}
+
+.text-display {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  letter-spacing: 0.5px;
+  color: var(--text-primary);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.8rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.word {
+  display: inline-flex;
+  gap: 2px;
+  background: transparent;
+  transition: all 0.1s;
+}
+
+.char {
+  display: inline-block;
+  transition: all 0.05s linear;
+}
+
+.char.correct {
+  color: var(--correct);
+}
+
+.char.wrong {
+  color: var(--wrong);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.char.active {
+  background: var(--current);
+  color: #0f172a;
+  border-radius: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.input-area {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.typing-input {
+  flex: 1;
+  background: rgba(0,0,0,0.4);
+  border: 2px solid var(--glass-border);
+  border-radius: 1.5rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: var(--transition);
+}
+
+.typing-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.3);
+}
+
+.input-controls {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.action-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  padding: 0 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.action-btn:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Stats Panel */
+.stats-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  border-radius: 1.5rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+.stat-card i {
+  font-size: 2rem;
+  color: var(--accent);
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Progress Bar */
+.progress-container {
+  background: rgba(0,0,0,0.3);
+  border-radius: 1rem;
+  height: 8px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #8b5cf6);
+  transition: width 0.2s ease;
+  border-radius: 1rem;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 2rem;
+  padding: 2rem;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  animation: modalFade 0.3s ease;
+}
+
+@keyframes modalFade {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-icon {
+  font-size: 3rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.modal-content h2 {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.result-stats {
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.primary-btn {
+  background: var(--accent);
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 2rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.primary-btn:hover {
+  background: var(--accent-hover);
+  transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .glass-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .text-display {
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+  }
+  
+  .stat-value {
+    font-size: 1.3rem;
+  }
+  
+  .timer-display {
+    font-size: 1.3rem;
+  }
+  
+  .typing-input {
+    font-size: 1rem;
+  }
+  
+  .action-btn {
+    padding: 0 1rem;
+  }
+}

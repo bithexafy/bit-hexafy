@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>TypeMaster • Premium Typing Test</title>
+  <!-- Google Fonts & Base -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Dark Mode Toggle (Bonus) -->
+    <div class="theme-toggle" id="themeToggle">
+      <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- ==================== PAGE 1: HOME / MODE SELECTION ==================== -->
+    <section id="homeView" class="view active-view">
+      <div class="hero-glass">
+        <h1 class="brand-logo">
+          <span class="gradient-text">⚡ TypeMaster</span>
+        </h1>
+        <p class="tagline">master precision • speed • flow</p>
+      </div>
+
+      <div class="mode-cards">
+        <!-- Learn Card -->
+        <div class="card learn-card" id="learnCard">
+          <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+          <h2>Learn Typing</h2>
+          <p>Finger guide · Posture · Technique</p>
+          <div class="card-shine"></div>
+        </div>
+
+        <!-- Practice Card -->
+        <div class="card practice-card" id="practiceCard">
+          <div class="card-icon"><i class="fas fa-dumbbell"></i></div>
+          <h2>Practice Mode</h2>
+          <p>No pressure · Build muscle memory</p>
+          <div class="card-shine"></div>
+        </div>
+
+        <!-- Test Card -->
+        <div class="card test-card" id="testCard">
+          <div class="card-icon"><i class="fas fa-trophy"></i></div>
+          <h2>Test Mode</h2>
+          <p>Timed challenge · Real metrics</p>
+          <div class="card-shine"></div>
+        </div>
+      </div>
+
+      <!-- LEARN PANEL (expandable / overlay) -->
+      <div id="learnPanel" class="learn-panel glass-panel hidden">
+        <div class="panel-header">
+          <h2><i class="fas fa-hand-pointer"></i> Typing Foundation</h2>
+          <button class="close-learn" id="closeLearnBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="learn-content">
+          <div class="learn-row">
+            <div class="posture-card">
+              <h3>🧘 Proper Posture</h3>
+              <ul>
+                <li>Back straight, feet flat</li>
+                <li>Elbows at 90°</li>
+                <li>Wrists floating</li>
+                <li>Screen at eye level</li>
+              </ul>
+            </div>
+            <div class="tips-card">
+              <h3>💡 Speed & Accuracy</h3>
+              <ul>
+                <li>Focus on accuracy first</li>
+                <li>Use all fingers</li>
+                <li>Don't look at keyboard</li>
+                <li>Practice daily 15min</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Finger placement + visual keyboard -->
+          <div class="finger-guide">
+            <h3>🖐️ Finger Placement (Home Row)</h3>
+            <div class="hands-row">
+              <div class="hand left-hand">
+                <span class="hand-label">Left hand</span>
+                <div class="finger-badge">A <small>pinky</small></div>
+                <div class="finger-badge">S <small>ring</small></div>
+                <div class="finger-badge">D <small>middle</small></div>
+                <div class="finger-badge">F <small>index</small></div>
+              </div>
+              <div class="hand right-hand">
+                <span class="hand-label">Right hand</span>
+                <div class="finger-badge">J <small>index</small></div>
+                <div class="finger-badge">K <small>middle</small></div>
+                <div class="finger-badge">L <small>ring</small></div>
+                <div class="finger-badge">; <small>pinky</small></div>
+              </div>
+            </div>
+            <!-- Visual keyboard highlight (simplified) -->
+            <div class="keyboard-visual" id="learnKeyboard">
+              <!-- Rendered by JS -->
+            </div>
+            <p class="keyboard-note">🔹 Color zones: left hand (blue) · right hand (coral)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS PANEL (appears when Practice/Test clicked) -->
+      <div id="settingsPanel" class="settings-panel glass-panel hidden">
+        <div class="panel-header">
+          <h2><i class="fas fa-sliders-h"></i> Configure Session</h2>
+          <button class="close-settings" id="closeSettingsBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="settings-body">
+          <div class="setting-group">
+            <label><i class="fas fa-font"></i> Mode</label>
+            <div class="toggle-group">
+              <button class="mode-btn active" data-mode="words">📝 Words</button>
+              <button class="mode-btn" data-mode="paragraph">📄 Paragraph</button>
+            </div>
+          </div>
+          <div class="setting-group">
+            <label><i class="fas fa-clock"></i> Duration</label>
+            <div class="toggle-group">
+              <button class="time-btn" data-time="30">30s</button>
+              <button class="time-btn active" data-time="60">60s</button>
+              <button class="time-btn" data-time="120">120s</button>
+            </div>
+          </div>
+          <div class="setting-group">
+            <label><i class="fas fa-signal"></i> Difficulty</label>
+            <div class="toggle-group">
+              <button class="diff-btn active" data-diff="easy">🌱 Easy</button>
+              <button class="diff-btn" data-diff="medium">🍂 Medium</button>
+              <button class="diff-btn" data-diff="hard">🔥 Hard</button>
+            </div>
+          </div>
+          <button class="start-session-btn" id="startSessionBtn">
+            <i class="fas fa-play"></i> Start Typing
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 2: TYPING INTERFACE ==================== -->
+    <section id="typingView" class="view">
+      <div class="typing-header">
+        <div class="stats-panel glass">
+          <div class="stat-item">
+            <span class="stat-label">WPM</span>
+            <span class="stat-value" id="wpmDisplay">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Accuracy</span>
+            <span class="stat-value" id="accDisplay">100%</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Time</span>
+            <span class="stat-value" id="timerDisplay">60</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Errors</span>
+            <span class="stat-value" id="errorDisplay">0</span>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button class="action-btn" id="pauseBtn"><i class="fas fa-pause"></i> Pause</button>
+          <button class="action-btn" id="resumeBtn" disabled><i class="fas fa-play"></i> Resume</button>
+          <button class="action-btn" id="restartBtn"><i class="fas fa-redo-alt"></i> Restart</button>
+          <button class="action-btn" id="submitBtn"><i class="fas fa-check"></i> Submit</button>
+        </div>
+      </div>
+
+      <!-- Text display area -->
+      <div class="text-display-container glass">
+        <div id="textDisplay" class="text-display">
+          <!-- words will be injected -->
+        </div>
+      </div>
+
+      <!-- Input box -->
+      <div class="input-wrapper glass">
+        <input type="text" id="typingInput" class="typing-input" placeholder="Start typing here..." autocomplete="off" autofocus>
+        <div class="input-hint">⏎ Enter to submit manually</div>
+      </div>
+
+      <!-- Live keyboard highlight (bonus) -->
+      <div class="live-keyboard glass" id="liveKeyboard">
+        <!-- generated by JS -->
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 3: RESULT PAGE ==================== -->
+    <section id="resultView" class="view">
+      <div class="result-card glass">
+        <h2 class="result-title">🏁 Your Performance</h2>
+        <div class="result-stats-grid">
+          <div class="res-item"><span class="res-label">WPM</span><span class="res-value" id="finalWpm">0</span></div>
+          <div class="res-item"><span class="res-label">Accuracy</span><span class="res-value" id="finalAcc">0%</span></div>
+          <div class="res-item"><span class="res-label">Total Words</span><span class="res-value" id="totalWords">0</span></div>
+          <div class="res-item"><span class="res-label">Correct Words</span><span class="res-value" id="correctWords">0</span></div>
+          <div class="res-item"><span class="res-label">Incorrect</span><span class="res-value" id="incorrectWords">0</span></div>
+          <div class="res-item"><span class="res-label">Time Taken</span><span class="res-value" id="timeTaken">0s</span></div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar" style="width:0%"></div>
+        </div>
+        <div class="performance-message" id="perfMessage">Excellent! 🌟</div>
+        <div class="result-actions">
+          <button class="primary-btn" id="restartResultBtn"><i class="fas fa-redo-alt"></i> Restart Test</button>
+          <button class="secondary-btn" id="homeBtn"><i class="fas fa-home"></i> Back to Home</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer / subtle -->
+  <div class="watermark">TypeMaster • precision engineered</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
